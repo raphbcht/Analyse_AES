@@ -2,136 +2,916 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Analyse AES - Formulaire complet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Analyse AES – Cabinet Cujas Avocats</title>
 
-  <!-- SurveyJS jQuery -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
   <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/survey-jquery@1.9.131/survey.jquery.min.js"></script>
   <link href="https://unpkg.com/survey-core@1.9.131/defaultV2.min.css" rel="stylesheet"/>
 
   <style>
-    body { font-family: Arial, sans-serif; margin: 30px; }
-    #surveyContainer { max-width: 800px; margin: auto; }
-    #result { margin-top: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; white-space: pre-wrap; }
+    :root {
+      --navy:    #0d1f3c;
+      --navy-mid:#1a3358;
+      --navy-light:#2a4a7a;
+      --gold:    #b8992a;
+      --gold-light:#d4b84a;
+      --cream:   #f7f4ee;
+      --cream-dark:#ede9e0;
+      --text:    #1c1c1c;
+      --text-mid:#4a4a4a;
+      --text-muted:#7a7a7a;
+      --border:  #d0cbc0;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: var(--navy);
+      padding: 0;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      border-bottom: 1px solid rgba(184,153,42,0.25);
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+
+    .logo-emblem {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-emblem svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .logo-text .cabinet {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    .logo-text .tagline {
+      font-size: 11px;
+      color: var(--gold-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .header-contact {
+      text-align: right;
+    }
+
+    .header-contact a {
+      display: block;
+      color: var(--gold-light);
+      font-size: 13px;
+      text-decoration: none;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    .header-contact a:hover { color: var(--white); }
+
+    .header-banner {
+      background: var(--navy-mid);
+      max-width: 100%;
+      padding: 14px 32px;
+      text-align: center;
+    }
+
+    .header-banner-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .gold-line {
+      flex: 1;
+      max-width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .gold-line.right {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+
+    .banner-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--cream);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--navy);
+      padding: 52px 32px 48px;
+    }
+
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: rgba(247,244,238,0.72);
+      line-height: 1.7;
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    .hero-badge {
+      background: rgba(184,153,42,0.1);
+      border: 1px solid rgba(184,153,42,0.35);
+      border-radius: 6px;
+      padding: 20px 24px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .hero-badge .years {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .hero-badge .years-label {
+      font-size: 11px;
+      color: rgba(247,244,238,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    /* ─── STEPS ─── */
+    .steps-bar {
+      background: var(--cream-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+    }
+
+    .steps-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+    }
+
+    .step-item {
+      flex: 1;
+      min-width: 120px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.2s;
+      cursor: default;
+    }
+
+    .step-item.active {
+      border-bottom-color: var(--gold);
+    }
+
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .step-item.active .step-num {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .step-item.done .step-num {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .step-item.active .step-label { color: var(--navy); font-weight: 500; }
+
+    /* ─── MAIN ─── */
+    main {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 32px 80px;
+    }
+
+    /* ─── SURVEY OVERRIDES ─── */
+    .sd-root-modern {
+      background: transparent !important;
+      font-family: 'DM Sans', sans-serif !important;
+    }
+
+    .sd-container-modern {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .sd-page {
+      background: var(--white) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 8px !important;
+      padding: 36px 40px !important;
+      box-shadow: 0 2px 16px rgba(13,31,60,0.07) !important;
+    }
+
+    .sd-page__title {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-size: 22px !important;
+      font-weight: 600 !important;
+      color: var(--navy) !important;
+      margin-bottom: 8px !important;
+      padding-bottom: 12px !important;
+      border-bottom: 1px solid var(--border) !important;
+    }
+
+    .sd-question__title {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      color: var(--text) !important;
+    }
+
+    .sd-input {
+      border: 1px solid var(--border) !important;
+      border-radius: 4px !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 14px !important;
+      background: var(--cream) !important;
+      color: var(--text) !important;
+      transition: border-color 0.15s !important;
+    }
+
+    .sd-input:focus {
+      border-color: var(--navy-light) !important;
+      box-shadow: 0 0 0 3px rgba(26,51,88,0.1) !important;
+      background: var(--white) !important;
+    }
+
+    .sd-dropdown__filter-string-input {
+      font-family: 'DM Sans', sans-serif !important;
+    }
+
+    .sd-btn {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      border-radius: 4px !important;
+      padding: 10px 28px !important;
+      transition: all 0.15s !important;
+    }
+
+    .sd-btn--action {
+      background: var(--navy) !important;
+      border-color: var(--navy) !important;
+      color: var(--white) !important;
+    }
+
+    .sd-btn--action:hover {
+      background: var(--navy-light) !important;
+      border-color: var(--navy-light) !important;
+    }
+
+    .sd-progress__bar {
+      background: var(--gold) !important;
+    }
+
+    .sd-progress {
+      background: var(--border) !important;
+    }
+
+    .sd-radio__decorator, .sd-checkbox__decorator {
+      border-color: var(--border) !important;
+    }
+
+    .sd-item--checked .sd-radio__decorator,
+    .sd-item--checked .sd-checkbox__decorator {
+      border-color: var(--navy) !important;
+      background: var(--navy) !important;
+    }
+
+    /* ─── RESULT CARD ─── */
+    #result {
+      display: none;
+      margin-top: 32px;
+    }
+
+    .result-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(13,31,60,0.07);
+    }
+
+    .result-header {
+      background: var(--navy);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .result-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .result-icon.favorable { background: rgba(63,174,100,0.2); }
+    .result-icon.defavorable { background: rgba(220,80,80,0.2); }
+    .result-icon.borderline { background: rgba(184,153,42,0.2); }
+
+    .result-header-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .result-header-text p {
+      font-size: 13px;
+      color: rgba(247,244,238,0.6);
+      margin-top: 4px;
+      font-weight: 300;
+    }
+
+    .result-body {
+      padding: 32px 36px;
+    }
+
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 20px 24px;
+      background: var(--cream);
+      border-radius: 6px;
+      margin-bottom: 28px;
+    }
+
+    .score-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--navy);
+    }
+
+    .score-meta {
+      flex: 1;
+    }
+
+    .score-meta .score-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .score-bar-bg {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.8s ease;
+    }
+
+    .factors-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .factor-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+
+    .factor-pill.pos { background: rgba(63,174,100,0.08); border: 1px solid rgba(63,174,100,0.2); color: #1a6b3a; }
+    .factor-pill.neg { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.2); color: #8b2020; }
+    .factor-pill.neutral { background: var(--cream); border: 1px solid var(--border); color: var(--text-mid); }
+
+    .factor-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .factor-dot.pos { background: #3fae64; }
+    .factor-dot.neg { background: #dc5050; }
+    .factor-dot.neutral { background: var(--text-muted); }
+
+    .result-cta {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      padding: 24px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .result-cta p {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.5;
+      max-width: 480px;
+    }
+
+    .btn-contact {
+      flex-shrink: 0;
+      background: var(--navy);
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+      transition: background 0.15s;
+    }
+
+    .btn-contact:hover { background: var(--navy-light); }
+
+    .gold-accent-line {
+      height: 3px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin-bottom: 0;
+    }
+
+    /* ─── DISCLAIMER ─── */
+    .disclaimer {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(13,31,60,0.04);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      color: rgba(247,244,238,0.5);
+      padding: 28px 32px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 640px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-badge { display: none; }
+      .factors-grid { grid-template-columns: 1fr; }
+      .result-cta { flex-direction: column; align-items: flex-start; }
+      .header-top { padding: 16px 20px; }
+      .header-contact { display: none; }
+      main { padding: 0 20px 60px; }
+    }
   </style>
 </head>
 <body>
-  <h1>Analyse de recevabilité AES</h1>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <a href="https://avocat-cujas.fr" class="logo-block" target="_blank">
+      <div class="logo-emblem">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L13.8 8H20L14.6 11.8L16.4 17.8L12 14L7.6 17.8L9.4 11.8L4 8H10.2L12 2Z" fill="#b8992a"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="cabinet">Cabinet Cujas Avocats</div>
+        <div class="tagline">Droit des étrangers · Paris</div>
+      </div>
+    </a>
+    <div class="header-contact">
+      <a href="tel:0142654066">01 42 65 40 66</a>
+      <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank">25 rue Caumartin, 75009 Paris</a>
+    </div>
+  </div>
+  <div class="header-banner">
+    <div class="header-banner-inner">
+      <div class="gold-line"></div>
+      <span class="banner-title">Analyse de recevabilité — Admission Exceptionnelle au Séjour</span>
+      <div class="gold-line right"></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Évaluez votre dossier<br>d'<em>admission exceptionnelle</em><br>au séjour</h1>
+      <p>Notre outil d'analyse vous permet d'obtenir une première évaluation de votre dossier AES. Répondez aux questions ci-dessous pour connaître la recevabilité probable de votre demande.</p>
+    </div>
+    <div class="hero-badge">
+      <div class="years">25</div>
+      <div class="years-label">ans d'expérience<br>en droit des étrangers</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPS BAR -->
+<div class="steps-bar">
+  <div class="steps-inner" id="stepsBar">
+    <div class="step-item active" data-page="0">
+      <div class="step-num">1</div>
+      <div class="step-label">État civil</div>
+    </div>
+    <div class="step-item" data-page="1">
+      <div class="step-num">2</div>
+      <div class="step-label">Entrée en France</div>
+    </div>
+    <div class="step-item" data-page="2">
+      <div class="step-num">3</div>
+      <div class="step-label">Situation familiale</div>
+    </div>
+    <div class="step-item" data-page="3">
+      <div class="step-num">4</div>
+      <div class="step-label">Enfants</div>
+    </div>
+    <div class="step-item" data-page="4">
+      <div class="step-num">5</div>
+      <div class="step-label">Activité professionnelle</div>
+    </div>
+    <div class="step-item" data-page="5">
+      <div class="step-num">6</div>
+      <div class="step-label">Déclaration</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
   <div id="surveyContainer"></div>
-  <div id="result"></div>
 
-  <script>
-    // === JSON complet du formulaire AES ===
-    const surveyJSON = {
-      title: "Analyse de recevabilité AES",
-      pages: [
-        {
-          name: "etatcivil",
-          elements: [
-            { type: "dropdown", name: "civil_title", title: "Civilité", isRequired: true, choices: ["Monsieur","Madame"] },
-            { type: "text", name: "last_name", title: "Nom", isRequired: true },
-            { type: "text", name: "first_name", title: "Prénom", isRequired: true },
-            { type: "text", name: "birth_name", title: "Nom d’épouse (si applicable)" },
-            { type: "text", name: "birth_date", title: "Date de naissance (AAAA-MM-JJ)", inputType:"date", isRequired: true },
-            { type: "text", name: "birth_country", title: "Pays de naissance", isRequired: true },
-            { type: "text", name: "nationality", title: "Nationalité", isRequired: true },
-            { type: "text", name: "residence_commune", title: "Commune de résidence", isRequired: true },
-            { type: "text", name: "residence_postcode", title: "Code postal", isRequired: true }
-          ]
-        },
-        {
-          name: "entreefrance",
-          elements: [
-            { type: "text", name: "entry_date", title: "Date d’entrée en France", inputType:"date", isRequired: true },
-            { type: "dropdown", name: "entry_visa", title: "Statut d’entrée", isRequired: true, choices: ["Sans visa","Avec un visa D","Avec visa C"] },
-            { type: "radiogroup", name: "asylum_application", title: "Demande d’asile en cours ?", isRequired: true, choices: ["Oui","Non"] },
-            { type: "radiogroup", name: "oqtf", title: "Déjà une OQTF ?", isRequired: true, choices: ["Oui","Non"] },
-            { type: "text", name: "oqtf_date", title: "Date OQTF", inputType:"date", visibleIf: "{oqtf} = 'Oui'" },
-            { type: "radiogroup", name: "other_eu_residence_permit", title: "Titre de séjour délivré par un autre pays de l’UE ?", isRequired: true, choices: ["Oui","Non"] },
-            { type: "text", name: "other_eu_country", title: "Quel pays ?", visibleIf: "{other_eu_residence_permit} = 'Oui'" },
-            { type: "text", name: "other_eu_permit_expiry", title: "Date d’expiration du titre (AAAA-MM-JJ)", inputType:"date", visibleIf: "{other_eu_residence_permit} = 'Oui'" }
-          ]
-        },
-        {
-          name: "famille",
-          elements: [
-            { type: "dropdown", name: "marital_status", title: "Situation familiale", isRequired: true,
-              choices: ["Célibataire","Concubin(e)","Pacsé(e)","Marié(e)","Veuf/Veuve","Divorcé(e)","Séparé(e)"] },
-            { type: "text", name: "marriage_date", title: "Date mariage/PACS/concubinage", inputType:"date",
-              visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" },
-            { type: "text", name: "cohabitation_since", title: "Date début de vie commune", inputType:"date",
-              visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" }
-          ]
-        },
-        {
-          name: "enfants",
-          elements: [
-            { type: "paneldynamic", name: "children", title: "Enfants", templateElements: [
-              { type: "text", name: "child_name", title: "Nom", isRequired: true },
-              { type: "text", name: "child_birthdate", title: "Date de naissance", inputType:"date", isRequired: true },
-              { type: "text", name: "child_birth_country", title: "Pays de naissance", isRequired: true },
-              { type: "text", name: "child_nationality", title: "Nationalité", isRequired: true },
-              { type: "radiogroup", name: "child_schooling", title: "Scolarisé en France ?", choices:["Oui","Non"], isRequired:true },
-              { type: "radiogroup", name: "child_schooling_3years", title: "Scolarisé depuis ≥ 3 ans ?", choices:["Oui","Non"],
-                visibleIf:"{panel.child_schooling} = 'Oui'" }
-            ],
-            panelAddText:"Ajouter un enfant", panelRemoveText:"Supprimer", minPanelCount:0, maxPanelCount:10 }
-          ]
-        },
-        {
-          name: "travail",
-          elements: [
-            { type: "radiogroup", name: "has_contract", title: "Contrat de travail en cours ?", isRequired: true, choices:["Oui","Non"] },
-            { type: "dropdown", name: "contract_type", title: "Type de contrat", visibleIf:"{has_contract} = 'Oui'", choices:["CDI","CDD","Intérim","Autre"] },
-            { type: "text", name: "paye_slips_count_3years", title: "Nombre de fiches de paie sur 3 ans (≥18h/semaine)", inputType:"number", visibleIf:"{has_contract} = 'Oui'" },
-            { type: "radiogroup", name: "employer_support", title: "Employeur prêt à aider ?", choices:["Oui","Non","Ne sais pas"], visibleIf:"{has_contract} = 'Oui'" }
-          ]
-        },
-        {
-          name: "declaration",
-          elements: [
-            { type: "checkbox", name: "honesty_declaration", title: "Je certifie l’exactitude des infos", isRequired:true, choices:["Je confirme"] },
-            { type: "checkbox", name: "terms_accept", title: "J’accepte les CGV et la politique de confidentialité", isRequired:true, choices:["J’accepte"] }
-          ]
-        }
+  <div id="result">
+    <div class="result-card">
+      <div class="gold-accent-line"></div>
+      <div class="result-header">
+        <div class="result-icon" id="resultIcon"></div>
+        <div class="result-header-text">
+          <h2 id="resultTitle"></h2>
+          <p id="resultSubtitle"></p>
+        </div>
+      </div>
+      <div class="result-body">
+        <div class="score-display">
+          <div class="score-num" id="scoreNum">—</div>
+          <div class="score-meta">
+            <div class="score-label">Score de recevabilité</div>
+            <div class="score-bar-bg">
+              <div class="score-bar-fill" id="scoreBar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="factors-grid" id="factorsGrid"></div>
+      </div>
+      <div class="result-cta">
+        <p>Cette analyse est indicative. Pour une évaluation complète et personnalisée de votre dossier, nous vous invitons à prendre contact avec le cabinet.</p>
+        <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank" class="btn-contact">Contacter le cabinet →</a>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>Avertissement :</strong> Cet outil est fourni à titre indicatif uniquement et ne constitue pas un avis juridique. Les résultats obtenus ne peuvent en aucun cas se substituer à une consultation avec un avocat qualifié. Le Cabinet Cujas Avocats se tient à votre disposition pour analyser votre situation individuelle.
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Cabinet Cujas Avocats · 25 rue de Caumartin, 75009 Paris · <a href="tel:0142654066">01 42 65 40 66</a> · <a href="https://avocat-cujas.fr/mentions-legales" target="_blank">Mentions légales</a></p>
+</footer>
+
+<script>
+const surveyJSON = {
+  title: "Analyse de recevabilité AES",
+  showProgressBar: "top",
+  progressBarType: "pages",
+  pages: [
+    {
+      name: "etatcivil",
+      title: "État civil",
+      elements: [
+        { type: "dropdown", name: "civil_title", title: "Civilité", isRequired: true, choices: ["Monsieur","Madame"] },
+        { type: "text", name: "last_name", title: "Nom", isRequired: true },
+        { type: "text", name: "first_name", title: "Prénom", isRequired: true },
+        { type: "text", name: "birth_name", title: "Nom d'épouse (si applicable)" },
+        { type: "text", name: "birth_date", title: "Date de naissance", inputType:"date", isRequired: true },
+        { type: "text", name: "birth_country", title: "Pays de naissance", isRequired: true },
+        { type: "text", name: "nationality", title: "Nationalité", isRequired: true },
+        { type: "text", name: "residence_commune", title: "Commune de résidence", isRequired: true },
+        { type: "text", name: "residence_postcode", title: "Code postal", isRequired: true }
       ]
-    };
+    },
+    {
+      name: "entreefrance",
+      title: "Entrée en France",
+      elements: [
+        { type: "text", name: "entry_date", title: "Date d'entrée en France", inputType:"date", isRequired: true },
+        { type: "dropdown", name: "entry_visa", title: "Statut d'entrée", isRequired: true, choices: ["Sans visa","Avec un visa D","Avec visa C"] },
+        { type: "radiogroup", name: "asylum_application", title: "Demande d'asile en cours ?", isRequired: true, choices: ["Oui","Non"] },
+        { type: "radiogroup", name: "oqtf", title: "Avez-vous déjà reçu une OQTF ?", isRequired: true, choices: ["Oui","Non"] },
+        { type: "text", name: "oqtf_date", title: "Date de l'OQTF", inputType:"date", visibleIf: "{oqtf} = 'Oui'" },
+        { type: "radiogroup", name: "other_eu_residence_permit", title: "Titre de séjour délivré par un autre pays de l'UE ?", isRequired: true, choices: ["Oui","Non"] },
+        { type: "text", name: "other_eu_country", title: "Quel pays de l'UE ?", visibleIf: "{other_eu_residence_permit} = 'Oui'" },
+        { type: "text", name: "other_eu_permit_expiry", title: "Date d'expiration du titre", inputType:"date", visibleIf: "{other_eu_residence_permit} = 'Oui'" }
+      ]
+    },
+    {
+      name: "famille",
+      title: "Situation familiale",
+      elements: [
+        { type: "dropdown", name: "marital_status", title: "Situation familiale", isRequired: true,
+          choices: ["Célibataire","Concubin(e)","Pacsé(e)","Marié(e)","Veuf/Veuve","Divorcé(e)","Séparé(e)"] },
+        { type: "text", name: "marriage_date", title: "Date de mariage / PACS / concubinage", inputType:"date",
+          visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" },
+        { type: "text", name: "cohabitation_since", title: "Date de début de vie commune", inputType:"date",
+          visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" }
+      ]
+    },
+    {
+      name: "enfants",
+      title: "Enfants",
+      elements: [
+        { type: "paneldynamic", name: "children", title: "Vos enfants", templateElements: [
+          { type: "text", name: "child_name", title: "Nom de l'enfant", isRequired: true },
+          { type: "text", name: "child_birthdate", title: "Date de naissance", inputType:"date", isRequired: true },
+          { type: "text", name: "child_birth_country", title: "Pays de naissance", isRequired: true },
+          { type: "text", name: "child_nationality", title: "Nationalité", isRequired: true },
+          { type: "radiogroup", name: "child_schooling", title: "Scolarisé(e) en France ?", choices:["Oui","Non"], isRequired:true },
+          { type: "radiogroup", name: "child_schooling_3years", title: "Scolarisé(e) depuis 3 ans ou plus ?", choices:["Oui","Non"],
+            visibleIf:"{panel.child_schooling} = 'Oui'" }
+        ],
+        panelAddText:"+ Ajouter un enfant", panelRemoveText:"Supprimer", minPanelCount:0, maxPanelCount:10 }
+      ]
+    },
+    {
+      name: "travail",
+      title: "Activité professionnelle",
+      elements: [
+        { type: "radiogroup", name: "has_contract", title: "Avez-vous un contrat de travail en cours ?", isRequired: true, choices:["Oui","Non"] },
+        { type: "dropdown", name: "contract_type", title: "Type de contrat", visibleIf:"{has_contract} = 'Oui'", choices:["CDI","CDD","Intérim","Autre"] },
+        { type: "text", name: "paye_slips_count_3years", title: "Nombre de fiches de paie sur 3 ans (≥ 18h/semaine)", inputType:"number", visibleIf:"{has_contract} = 'Oui'" },
+        { type: "radiogroup", name: "employer_support", title: "Votre employeur est-il prêt à soutenir votre dossier ?", choices:["Oui","Non","Ne sais pas"], visibleIf:"{has_contract} = 'Oui'" }
+      ]
+    },
+    {
+      name: "declaration",
+      title: "Déclaration et confirmation",
+      elements: [
+        { type: "checkbox", name: "honesty_declaration", title: "Je certifie sur l'honneur l'exactitude des informations renseignées", isRequired:true, choices:["Je confirme"] },
+        { type: "checkbox", name: "terms_accept", title: "J'accepte les conditions générales d'utilisation et la politique de confidentialité", isRequired:true, choices:["J'accepte"] }
+      ]
+    }
+  ]
+};
 
-    // === Création et affichage du formulaire ===
-    $("#surveyContainer").Survey({
-      model: new Survey.Model(surveyJSON),
-      onComplete: function (sender) {
-        const data = sender.data;
-        let score = 0;
+// Init survey
+const survey = new Survey.Model(surveyJSON);
 
-        // Scoring (simplifié, à étendre)
-        if (data.oqtf === "Oui") score -= 100;
-        if (data.asylum_application === "Oui") score -= 20;
-        if (data.entry_visa === "Avec un visa D") score += 5;
-        if (data.other_eu_residence_permit === "Oui") score += 15;
-        if (data.children) {
-          data.children.forEach(child => {
-            if (child.child_schooling_3years === "Oui") score += 30;
-          });
-        }
-        if (data.marital_status && (data.marital_status === "Marié(e)" || data.marital_status === "Pacsé(e)" || data.marital_status === "Concubin(e)")) {
-          score += 20;
-        }
-        if (data.has_contract === "Oui" && data.contract_type === "CDI") score += 25;
-        if (data.paye_slips_count_3years >= 36) score += 30;
+survey.onCurrentPageChanged.add(function(sender) {
+  updateSteps(sender.currentPageNo);
+});
 
-        let conclusion = "";
-        if (score >= 30) conclusion = "✅ Recevable probable";
-        else if (score <= -30) conclusion = "❌ Irecevable probable";
-        else conclusion = "⚖️ Cas borderline (examen manuel recommandé)";
+survey.onComplete.add(function(sender) {
+  const data = sender.data;
+  let score = 0;
+  const factors = [];
 
-        document.getElementById("result").innerHTML =
-          "<h3>Résultat</h3>" +
-          "<p><b>Score :</b> " + score + "</p>" +
-          "<p><b>Conclusion :</b> " + conclusion + "</p>" +
-          "<h4>Réponses</h4><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+  if (data.oqtf === "Oui") {
+    score -= 100;
+    factors.push({ label: "OQTF enregistrée", type: "neg" });
+  }
+  if (data.asylum_application === "Oui") {
+    score -= 20;
+    factors.push({ label: "Demande d'asile en cours", type: "neg" });
+  }
+  if (data.entry_visa === "Avec un visa D") {
+    score += 5;
+    factors.push({ label: "Entrée avec visa D", type: "pos" });
+  }
+  if (data.other_eu_residence_permit === "Oui") {
+    score += 15;
+    factors.push({ label: "Titre de séjour UE", type: "pos" });
+  }
+  if (data.children && data.children.length > 0) {
+    data.children.forEach(child => {
+      if (child.child_schooling_3years === "Oui") {
+        score += 30;
+        factors.push({ label: "Enfant scolarisé 3 ans+", type: "pos" });
+      } else if (child.child_schooling === "Oui") {
+        score += 10;
+        factors.push({ label: "Enfant scolarisé en France", type: "pos" });
       }
     });
-  </script>
+  }
+  const linked = data.marital_status;
+  if (linked === "Marié(e)" || linked === "Pacsé(e)" || linked === "Concubin(e)") {
+    score += 20;
+    factors.push({ label: "Vie de couple stable", type: "pos" });
+  }
+  if (data.has_contract === "Oui") {
+    if (data.contract_type === "CDI") {
+      score += 25;
+      factors.push({ label: "Contrat CDI", type: "pos" });
+    } else {
+      score += 10;
+      factors.push({ label: "Contrat de travail", type: "pos" });
+    }
+  }
+  const slips = parseInt(data.paye_slips_count_3years);
+  if (slips >= 36) {
+    score += 30;
+    factors.push({ label: "≥ 36 fiches de paie (3 ans)", type: "pos" });
+  } else if (slips >= 18) {
+    score += 15;
+    factors.push({ label: "Activité professionnelle partielle", type: "neutral" });
+  }
+  if (data.employer_support === "Oui") {
+    score += 10;
+    factors.push({ label: "Soutien de l'employeur", type: "pos" });
+  }
+
+  // Display result
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('scoreNum').textContent = score > 0 ? '+' + score : score;
+
+  let barColor, barWidth, title, subtitle, iconText, iconClass;
+
+  if (score >= 30) {
+    barColor = '#3fae64';
+    barWidth = Math.min(100, 50 + score);
+    title = 'Recevabilité probable';
+    subtitle = 'Votre dossier présente des éléments favorables';
+    iconText = '✓';
+    iconClass = 'favorable';
+  } else if (score <= -30) {
+    barColor = '#dc5050';
+    barWidth = Math.max(5, 20 + score / 2);
+    title = 'Recevabilité incertaine';
+    subtitle = 'Des obstacles significatifs ont été identifiés';
+    iconText = '!';
+    iconClass = 'defavorable';
+  } else {
+    barColor = '#b8992a';
+    barWidth = 40;
+    title = 'Dossier borderline';
+    subtitle = 'Un examen approfondi par un avocat est recommandé';
+    iconText = '~';
+    iconClass = 'borderline';
+  }
+
+  document.getElementById('scoreBar').style.background = barColor;
+  document.getElementById('scoreBar').style.width = barWidth + '%';
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSubtitle').textContent = subtitle;
+
+  const iconEl = document.getElementById('resultIcon');
+  iconEl.className = 'result-icon ' + iconClass;
+  iconEl.textContent = iconText;
+  iconEl.style.fontSize = '20px';
+  iconEl.style.fontWeight = '600';
+  iconEl.style.color = barColor;
+
+  const grid = document.getElementById('factorsGrid');
+  grid.innerHTML = '';
+  if (factors.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);font-size:13px;grid-column:1/-1">Aucun facteur déterminant identifié.</p>';
+  } else {
+    factors.forEach(f => {
+      grid.innerHTML += `<div class="factor-pill ${f.type}"><span class="factor-dot ${f.type}"></span>${f.label}</div>`;
+    });
+  }
+
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+$("#surveyContainer").Survey({ model: survey });
+
+function updateSteps(currentPage) {
+  document.querySelectorAll('.step-item').forEach((el, idx) => {
+    el.classList.remove('active', 'done');
+    if (idx < currentPage) el.classList.add('done');
+    else if (idx === currentPage) el.classList.add('active');
+  });
+}
+</script>
 </body>
 </html>
