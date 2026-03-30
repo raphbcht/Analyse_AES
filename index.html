@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Analyse AES – Cabinet Cujas Avocats</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/survey-jquery@1.9.131/survey.jquery.min.js"></script>
@@ -15,688 +15,641 @@
 
   <style>
     :root {
-      --navy:    #0d1f3c;
-      --navy-mid:#1a3358;
-      --navy-light:#2a4a7a;
-      --gold:    #b8992a;
-      --gold-light:#d4b84a;
-      --cream:   #f7f4ee;
-      --cream-dark:#ede9e0;
-      --text:    #1c1c1c;
-      --text-mid:#4a4a4a;
-      --text-muted:#7a7a7a;
-      --border:  #d0cbc0;
-      --white:   #ffffff;
+      --brown-deep:   #1e1208;
+      --brown-dark:   #2d1c0c;
+      --brown-mid:    #5c3d1e;
+      --gold:         #9a7520;
+      --gold-light:   #c49a35;
+      --gold-pale:    #e8d49a;
+      --gold-bg:      #f5edd8;
+      --white:        #ffffff;
+      --off-white:    #faf8f4;
+      --ivory:        #f2ede3;
+      --border:       #ddd5c5;
+      --border-light: #ede8de;
+      --text:         #1e1208;
+      --text-mid:     #4a3520;
+      --text-muted:   #8a7560;
+      --success:      #2d6a3f;
+      --success-bg:   #eaf3ec;
+      --danger:       #8b2020;
+      --danger-bg:    #f9ecec;
+      --warning-bg:   #fdf6e3;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      background: var(--cream);
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--off-white);
       color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* ─── HEADER ─── */
-    header {
-      background: var(--navy);
-      padding: 0;
-    }
-
-    .header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px 32px;
-      border-bottom: 1px solid rgba(184,153,42,0.25);
-    }
-
-    .logo-block {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-    }
-
-    .logo-emblem {
-      width: 48px;
-      height: 48px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .logo-emblem svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .logo-text .cabinet {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-    }
-
-    .logo-text .tagline {
-      font-size: 11px;
-      color: var(--gold-light);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 300;
-    }
-
-    .header-contact {
-      text-align: right;
-    }
-
-    .header-contact a {
-      display: block;
-      color: var(--gold-light);
-      font-size: 13px;
-      text-decoration: none;
-      font-weight: 300;
-      letter-spacing: 0.04em;
-    }
-
-    .header-contact a:hover { color: var(--white); }
-
-    .header-banner {
-      background: var(--navy-mid);
-      max-width: 100%;
-      padding: 14px 32px;
-      text-align: center;
-    }
-
-    .header-banner-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .gold-line {
-      flex: 1;
-      max-width: 80px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold));
-    }
-    .gold-line.right {
-      background: linear-gradient(to left, transparent, var(--gold));
-    }
-
-    .banner-title {
-      font-family: 'Cormorant Garamond', serif;
       font-size: 15px;
-      font-weight: 500;
-      color: var(--cream);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      background: var(--navy);
-      padding: 52px 32px 48px;
-    }
-
-    .hero-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 500;
-      color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 14px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold-light);
-    }
-
-    .hero p {
-      font-size: 15px;
-      color: rgba(247,244,238,0.72);
-      line-height: 1.7;
-      max-width: 520px;
-      font-weight: 300;
-    }
-
-    .hero-badge {
-      background: rgba(184,153,42,0.1);
-      border: 1px solid rgba(184,153,42,0.35);
-      border-radius: 6px;
-      padding: 20px 24px;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .hero-badge .years {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 600;
-      color: var(--gold-light);
-      line-height: 1;
-    }
-
-    .hero-badge .years-label {
-      font-size: 11px;
-      color: rgba(247,244,238,0.55);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 4px;
-      font-weight: 300;
-    }
-
-    /* ─── STEPS ─── */
-    .steps-bar {
-      background: var(--cream-dark);
-      border-bottom: 1px solid var(--border);
-      padding: 0 32px;
-    }
-
-    .steps-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      overflow-x: auto;
-    }
-
-    .step-item {
-      flex: 1;
-      min-width: 120px;
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 3px solid transparent;
-      transition: border-color 0.2s;
-      cursor: default;
-    }
-
-    .step-item.active {
-      border-bottom-color: var(--gold);
-    }
-
-    .step-num {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: var(--cream);
-      border: 1.5px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-
-    .step-item.active .step-num {
-      background: var(--navy);
-      border-color: var(--navy);
-      color: var(--white);
-    }
-
-    .step-item.done .step-num {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--white);
-    }
-
-    .step-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-align: center;
-      letter-spacing: 0.04em;
-    }
-
-    .step-item.active .step-label { color: var(--navy); font-weight: 500; }
-
-    /* ─── MAIN ─── */
-    main {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 32px 80px;
-    }
-
-    /* ─── SURVEY OVERRIDES ─── */
-    .sd-root-modern {
-      background: transparent !important;
-      font-family: 'DM Sans', sans-serif !important;
-    }
-
-    .sd-container-modern {
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-
-    .sd-page {
-      background: var(--white) !important;
-      border: 1px solid var(--border) !important;
-      border-radius: 8px !important;
-      padding: 36px 40px !important;
-      box-shadow: 0 2px 16px rgba(13,31,60,0.07) !important;
-    }
-
-    .sd-page__title {
-      font-family: 'Cormorant Garamond', serif !important;
-      font-size: 22px !important;
-      font-weight: 600 !important;
-      color: var(--navy) !important;
-      margin-bottom: 8px !important;
-      padding-bottom: 12px !important;
-      border-bottom: 1px solid var(--border) !important;
-    }
-
-    .sd-question__title {
-      font-family: 'DM Sans', sans-serif !important;
-      font-size: 14px !important;
-      font-weight: 500 !important;
-      color: var(--text) !important;
-    }
-
-    .sd-input {
-      border: 1px solid var(--border) !important;
-      border-radius: 4px !important;
-      font-family: 'DM Sans', sans-serif !important;
-      font-size: 14px !important;
-      background: var(--cream) !important;
-      color: var(--text) !important;
-      transition: border-color 0.15s !important;
-    }
-
-    .sd-input:focus {
-      border-color: var(--navy-light) !important;
-      box-shadow: 0 0 0 3px rgba(26,51,88,0.1) !important;
-      background: var(--white) !important;
-    }
-
-    .sd-dropdown__filter-string-input {
-      font-family: 'DM Sans', sans-serif !important;
-    }
-
-    .sd-btn {
-      font-family: 'DM Sans', sans-serif !important;
-      font-size: 14px !important;
-      font-weight: 500 !important;
-      border-radius: 4px !important;
-      padding: 10px 28px !important;
-      transition: all 0.15s !important;
-    }
-
-    .sd-btn--action {
-      background: var(--navy) !important;
-      border-color: var(--navy) !important;
-      color: var(--white) !important;
-    }
-
-    .sd-btn--action:hover {
-      background: var(--navy-light) !important;
-      border-color: var(--navy-light) !important;
-    }
-
-    .sd-progress__bar {
-      background: var(--gold) !important;
-    }
-
-    .sd-progress {
-      background: var(--border) !important;
-    }
-
-    .sd-radio__decorator, .sd-checkbox__decorator {
-      border-color: var(--border) !important;
-    }
-
-    .sd-item--checked .sd-radio__decorator,
-    .sd-item--checked .sd-checkbox__decorator {
-      border-color: var(--navy) !important;
-      background: var(--navy) !important;
-    }
-
-    /* ─── RESULT CARD ─── */
-    #result {
-      display: none;
-      margin-top: 32px;
-    }
-
-    .result-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(13,31,60,0.07);
-    }
-
-    .result-header {
-      background: var(--navy);
-      padding: 28px 36px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .result-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .result-icon.favorable { background: rgba(63,174,100,0.2); }
-    .result-icon.defavorable { background: rgba(220,80,80,0.2); }
-    .result-icon.borderline { background: rgba(184,153,42,0.2); }
-
-    .result-header-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--white);
-      line-height: 1.2;
-    }
-
-    .result-header-text p {
-      font-size: 13px;
-      color: rgba(247,244,238,0.6);
-      margin-top: 4px;
-      font-weight: 300;
-    }
-
-    .result-body {
-      padding: 32px 36px;
-    }
-
-    .score-display {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      padding: 20px 24px;
-      background: var(--cream);
-      border-radius: 6px;
-      margin-bottom: 28px;
-    }
-
-    .score-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
-      font-weight: 600;
-      line-height: 1;
-      color: var(--navy);
-    }
-
-    .score-meta {
-      flex: 1;
-    }
-
-    .score-meta .score-label {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .score-bar-bg {
-      height: 6px;
-      background: var(--border);
-      border-radius: 3px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-
-    .score-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.8s ease;
-    }
-
-    .factors-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .factor-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 5px;
-      font-size: 13px;
-    }
-
-    .factor-pill.pos { background: rgba(63,174,100,0.08); border: 1px solid rgba(63,174,100,0.2); color: #1a6b3a; }
-    .factor-pill.neg { background: rgba(220,80,80,0.08); border: 1px solid rgba(220,80,80,0.2); color: #8b2020; }
-    .factor-pill.neutral { background: var(--cream); border: 1px solid var(--border); color: var(--text-mid); }
-
-    .factor-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .factor-dot.pos { background: #3fae64; }
-    .factor-dot.neg { background: #dc5050; }
-    .factor-dot.neutral { background: var(--text-muted); }
-
-    .result-cta {
-      background: var(--cream);
-      border-top: 1px solid var(--border);
-      padding: 24px 36px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .result-cta p {
-      font-size: 14px;
-      color: var(--text-mid);
-      line-height: 1.5;
-      max-width: 480px;
-    }
-
-    .btn-contact {
-      flex-shrink: 0;
-      background: var(--navy);
-      color: var(--white);
-      text-decoration: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 12px 28px;
-      border-radius: 4px;
-      letter-spacing: 0.03em;
-      transition: background 0.15s;
-    }
-
-    .btn-contact:hover { background: var(--navy-light); }
-
-    .gold-accent-line {
-      height: 3px;
-      background: linear-gradient(to right, var(--gold), transparent);
-      margin-bottom: 0;
-    }
-
-    /* ─── DISCLAIMER ─── */
-    .disclaimer {
-      margin-top: 24px;
-      padding: 16px 20px;
-      background: rgba(13,31,60,0.04);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 4px 4px 0;
-      font-size: 12px;
-      color: var(--text-muted);
       line-height: 1.6;
     }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--navy);
-      color: rgba(247,244,238,0.5);
-      padding: 28px 32px;
-      text-align: center;
-      font-size: 12px;
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--brown-deep);
+      padding: 7px 0;
+    }
+    .topbar-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.05em;
       font-weight: 300;
-      letter-spacing: 0.04em;
+    }
+    .topbar a { color: var(--gold-pale); text-decoration: none; }
+    .topbar a:hover { color: #fff; }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 8px rgba(30,18,8,0.06);
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 66px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-mark svg { width: 18px; height: 18px; }
+    .nav-logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16.5px;
+      font-weight: 600;
+      color: var(--brown-deep);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; gap: 26px; align-items: center;
+    }
+    .nav-links a {
+      font-size: 13px; font-weight: 500;
+      color: var(--brown-mid); text-decoration: none;
+      letter-spacing: 0.04em; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--brown-deep) !important;
+      color: var(--white) !important;
+      padding: 8px 18px;
+      font-size: 12px !important;
+      letter-spacing: 0.07em !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--brown-deep);
+      padding: 54px 24px 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(154,117,32,0.03) 40px, rgba(154,117,32,0.03) 41px);
+    }
+    .hero-inner {
+      max-width: 1000px; margin: 0 auto;
+      position: relative;
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 40px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .eyebrow-line { width: 28px; height: 1px; background: var(--gold); }
+    .eyebrow-text {
+      font-size: 10.5px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-light);
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 600; color: var(--white);
+      line-height: 1.22; margin-bottom: 14px;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero p {
+      font-size: 15px; color: rgba(255,255,255,0.55);
+      max-width: 500px; font-weight: 300; line-height: 1.75;
+    }
+    .hero-stat {
+      flex-shrink: 0;
+      border: 1px solid rgba(154,117,32,0.4);
+      padding: 22px 28px; text-align: center; min-width: 128px;
+    }
+    .hero-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px; font-weight: 600;
+      color: var(--gold-light); line-height: 1; display: block;
+    }
+    .hero-stat .lbl {
+      font-size: 10px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38);
+      margin-top: 5px; display: block; font-weight: 300;
     }
 
-    footer a { color: var(--gold-light); text-decoration: none; }
-    footer a:hover { color: var(--white); }
+    /* ── STEP BAR ── */
+    .steps-wrap {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .steps-inner {
+      max-width: 1000px; margin: 0 auto; padding: 0 24px;
+      display: flex; overflow-x: auto; scrollbar-width: none;
+    }
+    .steps-inner::-webkit-scrollbar { display: none; }
+    .step {
+      flex: 1; min-width: 96px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 13px 8px 11px;
+      border-bottom: 2.5px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .step.active { border-bottom-color: var(--gold); }
+    .step.done   { border-bottom-color: var(--gold-pale); }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--ivory);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .step.active .step-dot { background: var(--gold); border-color: var(--gold); color: #fff; }
+    .step.done   .step-dot { background: var(--gold-bg); border-color: var(--gold-pale); color: var(--gold); font-size: 13px; }
+    .step-lbl {
+      font-size: 10.5px; letter-spacing: 0.03em;
+      color: var(--text-muted); text-align: center;
+    }
+    .step.active .step-lbl { color: var(--gold); font-weight: 600; }
+    .step.done   .step-lbl { color: var(--text-mid); }
 
-    @media (max-width: 640px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-badge { display: none; }
+    /* ── BODY GRID ── */
+    .body-grid {
+      max-width: 1000px; margin: 0 auto;
+      padding: 36px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 268px;
+      gap: 28px; align-items: start;
+    }
+
+    /* ── SURVEY OVERRIDES ── */
+    .sd-root-modern, .sd-container-modern {
+      background: transparent !important; box-shadow: none !important;
+    }
+    .sd-body { padding: 0 !important; }
+    .sd-page {
+      background: var(--white) !important;
+      border: 1px solid var(--border) !important;
+      border-radius: 0 !important;
+      border-top: 3px solid var(--gold) !important;
+      padding: 30px 34px 34px !important;
+      box-shadow: 0 1px 12px rgba(30,18,8,0.06) !important;
+    }
+    .sd-page__title {
+      font-family: 'Playfair Display', serif !important;
+      font-size: 19px !important; font-weight: 600 !important;
+      color: var(--brown-deep) !important;
+      padding-bottom: 14px !important; margin-bottom: 4px !important;
+      border-bottom: 1px solid var(--border-light) !important;
+    }
+    .sd-question__title {
+      font-family: 'Source Sans 3', sans-serif !important;
+      font-size: 13.5px !important; font-weight: 600 !important;
+      color: var(--brown-dark) !important;
+    }
+    .sd-question { padding-top: 16px !important; padding-bottom: 2px !important; }
+    .sd-input {
+      border: 1px solid var(--border) !important; border-radius: 0 !important;
+      font-family: 'Source Sans 3', sans-serif !important;
+      font-size: 14px !important;
+      background: var(--off-white) !important; color: var(--text) !important;
+      padding: 9px 12px !important;
+      transition: border-color 0.15s, background 0.15s !important;
+    }
+    .sd-input:focus {
+      border-color: var(--gold) !important; background: var(--white) !important;
+      box-shadow: 0 0 0 3px rgba(154,117,32,0.12) !important; outline: none !important;
+    }
+    .sd-dropdown__filter-string-input { font-family: 'Source Sans 3', sans-serif !important; }
+    .sd-item__decorator { border-color: var(--border) !important; border-radius: 0 !important; }
+    .sd-radio__decorator { border-radius: 50% !important; }
+    .sd-checkbox__decorator { border-radius: 0 !important; }
+    .sd-item--checked .sd-item__decorator {
+      background: var(--gold) !important; border-color: var(--gold) !important;
+    }
+    .sd-item__control-label {
+      font-size: 13.5px !important; color: var(--text-mid) !important;
+      font-family: 'Source Sans 3', sans-serif !important;
+    }
+    .sd-navigation__complete-btn, .sd-navigation__next-btn, .sd-navigation__prev-btn, .sd-btn {
+      font-family: 'Source Sans 3', sans-serif !important;
+      font-size: 12.5px !important; font-weight: 600 !important;
+      border-radius: 0 !important; padding: 10px 26px !important;
+      letter-spacing: 0.07em !important; text-transform: uppercase !important;
+      transition: all 0.15s !important;
+    }
+    .sd-navigation__complete-btn, .sd-navigation__next-btn {
+      background: var(--brown-deep) !important; border-color: var(--brown-deep) !important;
+      color: var(--white) !important;
+    }
+    .sd-navigation__complete-btn:hover, .sd-navigation__next-btn:hover {
+      background: var(--gold) !important; border-color: var(--gold) !important;
+    }
+    .sd-navigation__prev-btn {
+      background: transparent !important; border-color: var(--border) !important;
+      color: var(--text-mid) !important;
+    }
+    .sd-navigation__prev-btn:hover { border-color: var(--brown-mid) !important; color: var(--brown-deep) !important; }
+    .sd-progress { height: 3px !important; background: var(--border-light) !important; }
+    .sd-progress__bar { background: var(--gold) !important; }
+
+    /* Title "Analyse de recevabilité AES" + survey-level progress bar */
+    .sd-title.sd-container-modern__title { background: var(--brown-deep) !important; }
+    .sd-title.sd-container-modern__title .sd-header__text h3,
+    .sd-title.sd-container-modern__title .sd-title {
+      font-family: 'Playfair Display', serif !important;
+      color: var(--white) !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+    }
+    .sd-title.sd-container-modern__title .sd-description { color: rgba(255,255,255,0.5) !important; }
+
+    /* Survey-level progress bar (the one below the title block) */
+    .sd-container-modern__title + .sd-progress,
+    .sd-body__progress { background: var(--border) !important; }
+    .sd-body__progress .sd-progress__bar,
+    .sd-container-modern__title + .sd-progress .sd-progress__bar {
+      background: var(--gold) !important;
+    }
+
+    /* Force SurveyJS CSS custom properties to Cujas gold */
+    .sd-root-modern {
+      --primary:                     #9a7520 !important;
+      --primary-light:               #f5edd8 !important;
+      --primary-foreground:          #ffffff !important;
+      --sjs-primary-backcolor:       #9a7520 !important;
+      --sjs-primary-backcolor-light: #f5edd8 !important;
+      --sjs-primary-backcolor-dark:  #7a5c16 !important;
+      --sjs-primary-forecolor:       #ffffff !important;
+    }
+    /* Survey title banner */
+    .sd-container-modern__title {
+      background: var(--brown-deep) !important;
+      padding: 18px 34px !important;
+      border-bottom: 1px solid rgba(154,117,32,0.25) !important;
+    }
+    .sd-container-modern__title h3,
+    .sd-container-modern__title .sd-title,
+    .sd-header__text h3 {
+      font-family: 'Playfair Display', serif !important;
+      color: #ffffff !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.01em !important;
+    }
+    .sd-container-modern__title .sd-description {
+      color: rgba(255,255,255,0.45) !important;
+      font-size: 13px !important;
+    }
+    /* Progress bar directly below the title */
+    .sd-body__progress,
+    .sd-progress {
+      background: var(--border) !important;
+      height: 3px !important;
+    }
+    .sd-body__progress .sd-progress__bar,
+    .sd-progress .sd-progress__bar {
+      background: var(--gold) !important;
+    }
+    .sd-paneldynamic__add-btn {
+      border-color: var(--gold) !important; color: var(--gold) !important;
+      font-family: 'Source Sans 3', sans-serif !important;
+      font-size: 13px !important; border-radius: 0 !important;
+    }
+    .sd-paneldynamic__add-btn:hover { background: var(--gold-bg) !important; }
+    .sd-panel {
+      border: 1px solid var(--border-light) !important;
+      background: var(--off-white) !important; border-radius: 0 !important;
+    }
+
+    /* ── RESULT ── */
+    #result { display: none; margin-top: 24px; }
+    .result-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      box-shadow: 0 1px 12px rgba(30,18,8,0.06);
+    }
+    .result-header {
+      background: var(--brown-deep);
+      padding: 26px 34px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .r-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      border: 1.5px solid; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 19px; font-weight: 700;
+    }
+    .r-icon.fav  { border-color: rgba(80,200,120,0.5); color: #5dc878; }
+    .r-icon.def  { border-color: rgba(220,80,80,0.5);  color: #e06060; }
+    .r-icon.bord { border-color: rgba(196,154,53,0.5); color: var(--gold-light); }
+    .r-header-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px; font-weight: 600;
+      color: var(--white); line-height: 1.2;
+    }
+    .r-header-text p {
+      font-size: 13px; color: rgba(255,255,255,0.48);
+      margin-top: 3px; font-weight: 300;
+    }
+    .result-body { padding: 26px 34px; }
+    .score-row {
+      display: flex; align-items: center; gap: 20px;
+      padding: 16px 20px;
+      background: var(--ivory); border: 1px solid var(--border-light);
+      margin-bottom: 22px;
+    }
+    .score-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 46px; font-weight: 600;
+      line-height: 1; color: var(--brown-deep); flex-shrink: 0;
+    }
+    .score-meta { flex: 1; }
+    .score-lbl {
+      font-size: 10.5px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .score-track { height: 4px; background: var(--border); overflow: hidden; }
+    .score-fill { height: 100%; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+    .factors-lbl {
+      font-size: 10.5px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      font-weight: 600; margin-bottom: 11px;
+    }
+    .factors-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 8px;
+    }
+    .factor {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 12px; font-size: 13px; border: 1px solid;
+    }
+    .factor.pos { background: var(--success-bg); border-color: rgba(45,106,63,0.2); color: var(--success); }
+    .factor.neg { background: var(--danger-bg);  border-color: rgba(139,32,32,0.2);  color: var(--danger); }
+    .factor.neu { background: var(--ivory);       border-color: var(--border-light);   color: var(--text-mid); }
+    .factor-mk  { font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .result-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; padding: 18px 34px;
+      background: var(--ivory); border-top: 1px solid var(--border-light);
+    }
+    .result-cta p { font-size: 13px; color: var(--text-mid); line-height: 1.55; max-width: 460px; }
+    .btn-cta {
+      flex-shrink: 0; display: inline-block;
+      background: var(--brown-deep); color: var(--white);
+      text-decoration: none; font-family: 'Source Sans 3', sans-serif;
+      font-size: 12px; font-weight: 600; padding: 11px 22px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: background 0.15s; white-space: nowrap;
+    }
+    .btn-cta:hover { background: var(--gold); }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      margin-top: 18px; padding: 13px 17px;
+      background: var(--warning-bg); border-left: 3px solid var(--gold-pale);
+      font-size: 12px; color: var(--text-muted); line-height: 1.65;
+    }
+    .disclaimer strong { color: var(--text-mid); }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 18px; position: sticky; top: 84px; }
+    .s-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold-pale);
+      padding: 20px;
+    }
+    .s-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 13.5px; font-weight: 600;
+      color: var(--brown-deep); margin-bottom: 11px;
+      padding-bottom: 9px; border-bottom: 1px solid var(--border-light);
+    }
+    .s-card p { font-size: 13px; color: var(--text-mid); line-height: 1.65; font-weight: 300; }
+    .s-tel {
+      display: block; margin-top: 11px;
+      font-size: 15.5px; font-weight: 600;
+      color: var(--brown-deep); text-decoration: none; letter-spacing: 0.04em;
+    }
+    .s-tel:hover { color: var(--gold); }
+    .s-addr { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .s-badge {
+      display: inline-block;
+      background: var(--gold-bg); border: 1px solid var(--gold-pale);
+      color: var(--gold); font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; margin-bottom: 9px;
+    }
+    .s-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .s-list li {
+      display: flex; align-items: flex-start; gap: 7px;
+      font-size: 12.5px; color: var(--text-mid); line-height: 1.5;
+    }
+    .s-list li::before { content: '→'; color: var(--gold); font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-deep); padding: 26px 24px; text-align: center;
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em; margin-bottom: 7px;
+    }
+    footer p { font-size: 11px; color: rgba(255,255,255,0.28); letter-spacing: 0.04em; font-weight: 300; }
+    footer a { color: var(--gold-pale); text-decoration: none; }
+    footer a:hover { color: var(--gold-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .body-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .hero-stat { display: none; }
       .factors-grid { grid-template-columns: 1fr; }
       .result-cta { flex-direction: column; align-items: flex-start; }
-      .header-top { padding: 16px 20px; }
-      .header-contact { display: none; }
-      main { padding: 0 20px 60px; }
+      .sd-page { padding: 20px 18px 24px !important; }
+      .topbar-inner { flex-direction: column; gap: 3px; }
     }
+    @media (max-width: 480px) { .nav-hide { display: none; } }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="header-top">
-    <a href="https://avocat-cujas.fr" class="logo-block" target="_blank">
-      <div class="logo-emblem">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L13.8 8H20L14.6 11.8L16.4 17.8L12 14L7.6 17.8L9.4 11.8L4 8H10.2L12 2Z" fill="var(--gold)"/>
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>25 rue de Caumartin, 75009 Paris</span>
+    <span>Tél&nbsp;: <a href="tel:0142654066">01 42 65 40 66</a> &nbsp;·&nbsp; Fax&nbsp;: 01 42 65 40 55</span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://avocat-cujas.fr" class="nav-logo" target="_blank">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 1L11.8 6.8H18L12.8 10.2L14.6 16L10 12.6L5.4 16L7.2 10.2L2 6.8H8.2L10 1Z" fill="#9a7520"/>
         </svg>
       </div>
-      <div class="logo-text">
-        <div class="cabinet">Cabinet Cujas Avocats</div>
-        <div class="tagline">Droit des étrangers · Paris</div>
+      <div>
+        <div class="nav-logo-name">Cabinet Cujas Avocats</div>
+        <div class="nav-logo-sub">Droit des étrangers · Paris</div>
       </div>
     </a>
-    <div class="header-contact">
-      <a href="tel:0142654066">01 42 65 40 66</a>
-      <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank">25 rue Caumartin, 75009 Paris</a>
+    <div class="nav-links">
+      <a href="https://avocat-cujas.fr/le-cabinet-avocat-droit-des-etrangers-sans-papier-immigration-sejour-nationalite" target="_blank" class="nav-hide">Le cabinet</a>
+      <a href="https://avocat-cujas.fr/specialites-droit-des-etrangers-sans-papier-immigration-sejour-nationalite" target="_blank" class="nav-hide">Compétences</a>
+      <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank" class="nav-cta">Contact</a>
     </div>
   </div>
-  <div class="header-banner">
-    <div class="header-banner-inner">
-      <div class="gold-line"></div>
-      <span class="banner-title">Analyse de recevabilité — Admission Exceptionnelle au Séjour</span>
-      <div class="gold-line right"></div>
-    </div>
-  </div>
-</header>
+</nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div>
-      <h1>Évaluez votre dossier<br>d'<em>admission exceptionnelle</em><br>au séjour</h1>
-      <p>Notre outil d'analyse vous permet d'obtenir une première évaluation de votre dossier AES. Répondez aux questions ci-dessous pour connaître la recevabilité probable de votre demande.</p>
-    </div>
-    <div class="hero-badge">
-      <div class="years">25</div>
-      <div class="years-label">ans d'expérience<br>en droit des étrangers</div>
-    </div>
-  </div>
-</div>
-
-<!-- STEPS BAR -->
-<div class="steps-bar">
-  <div class="steps-inner" id="stepsBar">
-    <div class="step-item active" data-page="0">
-      <div class="step-num">1</div>
-      <div class="step-label">État civil</div>
-    </div>
-    <div class="step-item" data-page="1">
-      <div class="step-num">2</div>
-      <div class="step-label">Entrée en France</div>
-    </div>
-    <div class="step-item" data-page="2">
-      <div class="step-num">3</div>
-      <div class="step-label">Situation familiale</div>
-    </div>
-    <div class="step-item" data-page="3">
-      <div class="step-num">4</div>
-      <div class="step-label">Enfants</div>
-    </div>
-    <div class="step-item" data-page="4">
-      <div class="step-num">5</div>
-      <div class="step-label">Activité professionnelle</div>
-    </div>
-    <div class="step-item" data-page="5">
-      <div class="step-num">6</div>
-      <div class="step-label">Déclaration</div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<main>
-  <div id="surveyContainer"></div>
-
-  <div id="result">
-    <div class="result-card">
-      <div class="gold-accent-line"></div>
-      <div class="result-header">
-        <div class="result-icon" id="resultIcon"></div>
-        <div class="result-header-text">
-          <h2 id="resultTitle"></h2>
-          <p id="resultSubtitle"></p>
-        </div>
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Outil d'analyse — AES</span>
       </div>
-      <div class="result-body">
-        <div class="score-display">
-          <div class="score-num" id="scoreNum">—</div>
-          <div class="score-meta">
-            <div class="score-label">Score de recevabilité</div>
-            <div class="score-bar-bg">
-              <div class="score-bar-fill" id="scoreBar"></div>
-            </div>
+      <h1>Admission <em>Exceptionnelle</em><br>au Séjour</h1>
+      <p>Évaluez en quelques minutes la recevabilité probable de votre dossier de régularisation. Un premier diagnostic gratuit, sans engagement.</p>
+    </div>
+    <div class="hero-stat">
+      <span class="num">25</span>
+      <span class="lbl">ans d'expérience<br>en droit des étrangers</span>
+    </div>
+  </div>
+</div>
+
+<div class="steps-wrap">
+  <div class="steps-inner" id="stepsBar">
+    <div class="step active"><div class="step-dot">1</div><div class="step-lbl">État civil</div></div>
+    <div class="step"><div class="step-dot">2</div><div class="step-lbl">Entrée France</div></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-lbl">Famille</div></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-lbl">Enfants</div></div>
+    <div class="step"><div class="step-dot">5</div><div class="step-lbl">Profession</div></div>
+    <div class="step"><div class="step-dot">6</div><div class="step-lbl">Déclaration</div></div>
+  </div>
+</div>
+
+<div class="body-grid">
+  <div>
+    <div id="surveyContainer"></div>
+
+    <div id="result">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="r-icon" id="rIcon"></div>
+          <div class="r-header-text">
+            <h2 id="rTitle"></h2>
+            <p id="rSub"></p>
           </div>
         </div>
-        <div class="factors-grid" id="factorsGrid"></div>
+        <div class="result-body">
+          <div class="score-row">
+            <div class="score-big" id="rScore">—</div>
+            <div class="score-meta">
+              <div class="score-lbl">Score de recevabilité</div>
+              <div class="score-track"><div class="score-fill" id="rBar" style="width:0%"></div></div>
+            </div>
+          </div>
+          <div class="factors-lbl">Facteurs identifiés</div>
+          <div class="factors-grid" id="rFactors"></div>
+        </div>
+        <div class="result-cta">
+          <p>Cette analyse est indicative. Pour une évaluation complète et personnalisée de votre situation, le cabinet reste à votre disposition.</p>
+          <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank" class="btn-cta">Contacter le cabinet →</a>
+        </div>
       </div>
-      <div class="result-cta">
-        <p>Cette analyse est indicative. Pour une évaluation complète et personnalisée de votre dossier, nous vous invitons à prendre contact avec le cabinet.</p>
-        <a href="https://avocat-cujas.fr/contact-avocat-droit-des-etrangers" target="_blank" class="btn-contact">Contacter le cabinet →</a>
+      <div class="disclaimer">
+        <strong>Avertissement :</strong> Cet outil est fourni à titre indicatif uniquement et ne constitue pas un avis juridique. Les résultats ne se substituent en aucun cas à une consultation avec un avocat qualifié.
       </div>
-    </div>
-    <div class="disclaimer">
-      <strong>Avertissement :</strong> Cet outil est fourni à titre indicatif uniquement et ne constitue pas un avis juridique. Les résultats obtenus ne peuvent en aucun cas se substituer à une consultation avec un avocat qualifié. Le Cabinet Cujas Avocats se tient à votre disposition pour analyser votre situation individuelle.
     </div>
   </div>
-</main>
 
-<!-- FOOTER -->
+  <aside class="sidebar">
+    <div class="s-card">
+      <div class="s-badge">Cabinet</div>
+      <div class="s-card-title">Avocats Cujas</div>
+      <p>Spécialisés en droit des étrangers depuis plus de 25 ans. Régularisation, recours OQTF, naturalisation.</p>
+      <a href="tel:0142654066" class="s-tel">01 42 65 40 66</a>
+      <div class="s-addr">25 rue de Caumartin, 75009 Paris</div>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Critères AES principaux</div>
+      <ul class="s-list">
+        <li>Travail salarié ≥ 3 ans (≥ 18h/sem)</li>
+        <li>Enfants scolarisés en France</li>
+        <li>Vie familiale stable en France</li>
+        <li>Absence d'OQTF en cours</li>
+        <li>Durée de présence sur le territoire</li>
+        <li>Intégration sociale et linguistique</li>
+      </ul>
+    </div>
+    <div class="s-card">
+      <div class="s-card-title">Nos domaines</div>
+      <ul class="s-list">
+        <li>Régularisation sans-papiers</li>
+        <li>Recours contre OQTF</li>
+        <li>Demande de naturalisation</li>
+        <li>Changement de statut</li>
+        <li>Regroupement familial</li>
+        <li>Défense en rétention administrative</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
 <footer>
-  <p>© 2026 Cabinet Cujas Avocats · 25 rue de Caumartin, 75009 Paris · <a href="tel:0142654066">01 42 65 40 66</a> · <a href="https://avocat-cujas.fr/mentions-legales" target="_blank">Mentions légales</a></p>
+  <div class="footer-name">Cabinet Cujas Avocats</div>
+  <p>© 2026 · 25 rue de Caumartin 75009 Paris · <a href="tel:0142654066">01 42 65 40 66</a> · <a href="https://avocat-cujas.fr/mentions-legales" target="_blank">Mentions légales</a></p>
 </footer>
 
 <script>
@@ -705,213 +658,138 @@ const surveyJSON = {
   showProgressBar: "top",
   progressBarType: "pages",
   pages: [
-    {
-      name: "etatcivil",
-      title: "État civil",
-      elements: [
-        { type: "dropdown", name: "civil_title", title: "Civilité", isRequired: true, choices: ["Monsieur","Madame"] },
-        { type: "text", name: "last_name", title: "Nom", isRequired: true },
-        { type: "text", name: "first_name", title: "Prénom", isRequired: true },
-        { type: "text", name: "birth_name", title: "Nom d'épouse (si applicable)" },
-        { type: "text", name: "birth_date", title: "Date de naissance", inputType:"date", isRequired: true },
-        { type: "text", name: "birth_country", title: "Pays de naissance", isRequired: true },
-        { type: "text", name: "nationality", title: "Nationalité", isRequired: true },
-        { type: "text", name: "residence_commune", title: "Commune de résidence", isRequired: true },
-        { type: "text", name: "residence_postcode", title: "Code postal", isRequired: true }
+    { name:"etatcivil", title:"État civil", elements:[
+      { type:"dropdown",  name:"civil_title",        title:"Civilité",               isRequired:true, choices:["Monsieur","Madame"] },
+      { type:"text",      name:"last_name",           title:"Nom de famille",         isRequired:true },
+      { type:"text",      name:"first_name",          title:"Prénom",                 isRequired:true },
+      { type:"text",      name:"birth_name",          title:"Nom d'épouse (si appl.)" },
+      { type:"text",      name:"birth_date",          title:"Date de naissance",      inputType:"date", isRequired:true },
+      { type:"text",      name:"birth_country",       title:"Pays de naissance",      isRequired:true },
+      { type:"text",      name:"nationality",         title:"Nationalité",            isRequired:true },
+      { type:"text",      name:"residence_commune",   title:"Commune de résidence",   isRequired:true },
+      { type:"text",      name:"residence_postcode",  title:"Code postal",            isRequired:true }
+    ]},
+    { name:"entreefrance", title:"Entrée en France", elements:[
+      { type:"text",       name:"entry_date",               title:"Date d'entrée en France",                    inputType:"date", isRequired:true },
+      { type:"dropdown",   name:"entry_visa",               title:"Statut d'entrée",                            isRequired:true, choices:["Sans visa","Avec un visa D","Avec visa C"] },
+      { type:"radiogroup", name:"asylum_application",       title:"Demande d'asile en cours ?",                 isRequired:true, choices:["Oui","Non"] },
+      { type:"radiogroup", name:"oqtf",                     title:"Avez-vous déjà reçu une OQTF ?",            isRequired:true, choices:["Oui","Non"] },
+      { type:"text",       name:"oqtf_date",                title:"Date de l'OQTF",                            inputType:"date", visibleIf:"{oqtf}='Oui'" },
+      { type:"radiogroup", name:"other_eu_residence_permit",title:"Titre de séjour d'un autre pays UE ?",      isRequired:true, choices:["Oui","Non"] },
+      { type:"text",       name:"other_eu_country",         title:"Quel pays ?",                                visibleIf:"{other_eu_residence_permit}='Oui'" },
+      { type:"text",       name:"other_eu_permit_expiry",   title:"Date d'expiration du titre",                inputType:"date", visibleIf:"{other_eu_residence_permit}='Oui'" }
+    ]},
+    { name:"famille", title:"Situation familiale", elements:[
+      { type:"dropdown", name:"marital_status", title:"Situation familiale", isRequired:true,
+        choices:["Célibataire","Concubin(e)","Pacsé(e)","Marié(e)","Veuf/Veuve","Divorcé(e)","Séparé(e)"] },
+      { type:"text", name:"marriage_date",      title:"Date de mariage / PACS / concubinage", inputType:"date",
+        visibleIf:"{marital_status}='Marié(e)' or {marital_status}='Pacsé(e)' or {marital_status}='Concubin(e)'" },
+      { type:"text", name:"cohabitation_since", title:"Date de début de vie commune",          inputType:"date",
+        visibleIf:"{marital_status}='Marié(e)' or {marital_status}='Pacsé(e)' or {marital_status}='Concubin(e)'" }
+    ]},
+    { name:"enfants", title:"Enfants", elements:[{
+      type:"paneldynamic", name:"children", title:"Vos enfants",
+      panelAddText:"+ Ajouter un enfant", panelRemoveText:"Supprimer",
+      minPanelCount:0, maxPanelCount:10,
+      templateElements:[
+        { type:"text",       name:"child_name",             title:"Nom",                           isRequired:true },
+        { type:"text",       name:"child_birthdate",        title:"Date de naissance",             inputType:"date", isRequired:true },
+        { type:"text",       name:"child_birth_country",    title:"Pays de naissance",             isRequired:true },
+        { type:"text",       name:"child_nationality",      title:"Nationalité",                   isRequired:true },
+        { type:"radiogroup", name:"child_schooling",        title:"Scolarisé(e) en France ?",      choices:["Oui","Non"], isRequired:true },
+        { type:"radiogroup", name:"child_schooling_3years", title:"Scolarisé(e) depuis ≥ 3 ans ?", choices:["Oui","Non"], visibleIf:"{panel.child_schooling}='Oui'" }
       ]
-    },
-    {
-      name: "entreefrance",
-      title: "Entrée en France",
-      elements: [
-        { type: "text", name: "entry_date", title: "Date d'entrée en France", inputType:"date", isRequired: true },
-        { type: "dropdown", name: "entry_visa", title: "Statut d'entrée", isRequired: true, choices: ["Sans visa","Avec un visa D","Avec visa C"] },
-        { type: "radiogroup", name: "asylum_application", title: "Demande d'asile en cours ?", isRequired: true, choices: ["Oui","Non"] },
-        { type: "radiogroup", name: "oqtf", title: "Avez-vous déjà reçu une OQTF ?", isRequired: true, choices: ["Oui","Non"] },
-        { type: "text", name: "oqtf_date", title: "Date de l'OQTF", inputType:"date", visibleIf: "{oqtf} = 'Oui'" },
-        { type: "radiogroup", name: "other_eu_residence_permit", title: "Titre de séjour délivré par un autre pays de l'UE ?", isRequired: true, choices: ["Oui","Non"] },
-        { type: "text", name: "other_eu_country", title: "Quel pays de l'UE ?", visibleIf: "{other_eu_residence_permit} = 'Oui'" },
-        { type: "text", name: "other_eu_permit_expiry", title: "Date d'expiration du titre", inputType:"date", visibleIf: "{other_eu_residence_permit} = 'Oui'" }
-      ]
-    },
-    {
-      name: "famille",
-      title: "Situation familiale",
-      elements: [
-        { type: "dropdown", name: "marital_status", title: "Situation familiale", isRequired: true,
-          choices: ["Célibataire","Concubin(e)","Pacsé(e)","Marié(e)","Veuf/Veuve","Divorcé(e)","Séparé(e)"] },
-        { type: "text", name: "marriage_date", title: "Date de mariage / PACS / concubinage", inputType:"date",
-          visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" },
-        { type: "text", name: "cohabitation_since", title: "Date de début de vie commune", inputType:"date",
-          visibleIf: "{marital_status} = 'Marié(e)' or {marital_status} = 'Pacsé(e)' or {marital_status} = 'Concubin(e)'" }
-      ]
-    },
-    {
-      name: "enfants",
-      title: "Enfants",
-      elements: [
-        { type: "paneldynamic", name: "children", title: "Vos enfants", templateElements: [
-          { type: "text", name: "child_name", title: "Nom de l'enfant", isRequired: true },
-          { type: "text", name: "child_birthdate", title: "Date de naissance", inputType:"date", isRequired: true },
-          { type: "text", name: "child_birth_country", title: "Pays de naissance", isRequired: true },
-          { type: "text", name: "child_nationality", title: "Nationalité", isRequired: true },
-          { type: "radiogroup", name: "child_schooling", title: "Scolarisé(e) en France ?", choices:["Oui","Non"], isRequired:true },
-          { type: "radiogroup", name: "child_schooling_3years", title: "Scolarisé(e) depuis 3 ans ou plus ?", choices:["Oui","Non"],
-            visibleIf:"{panel.child_schooling} = 'Oui'" }
-        ],
-        panelAddText:"+ Ajouter un enfant", panelRemoveText:"Supprimer", minPanelCount:0, maxPanelCount:10 }
-      ]
-    },
-    {
-      name: "travail",
-      title: "Activité professionnelle",
-      elements: [
-        { type: "radiogroup", name: "has_contract", title: "Avez-vous un contrat de travail en cours ?", isRequired: true, choices:["Oui","Non"] },
-        { type: "dropdown", name: "contract_type", title: "Type de contrat", visibleIf:"{has_contract} = 'Oui'", choices:["CDI","CDD","Intérim","Autre"] },
-        { type: "text", name: "paye_slips_count_3years", title: "Nombre de fiches de paie sur 3 ans (≥ 18h/semaine)", inputType:"number", visibleIf:"{has_contract} = 'Oui'" },
-        { type: "radiogroup", name: "employer_support", title: "Votre employeur est-il prêt à soutenir votre dossier ?", choices:["Oui","Non","Ne sais pas"], visibleIf:"{has_contract} = 'Oui'" }
-      ]
-    },
-    {
-      name: "declaration",
-      title: "Déclaration et confirmation",
-      elements: [
-        { type: "checkbox", name: "honesty_declaration", title: "Je certifie sur l'honneur l'exactitude des informations renseignées", isRequired:true, choices:["Je confirme"] },
-        { type: "checkbox", name: "terms_accept", title: "J'accepte les conditions générales d'utilisation et la politique de confidentialité", isRequired:true, choices:["J'accepte"] }
-      ]
-    }
+    }]},
+    { name:"travail", title:"Activité professionnelle", elements:[
+      { type:"radiogroup", name:"has_contract",           title:"Contrat de travail en cours ?",                isRequired:true, choices:["Oui","Non"] },
+      { type:"dropdown",   name:"contract_type",          title:"Type de contrat",                              visibleIf:"{has_contract}='Oui'", choices:["CDI","CDD","Intérim","Autre"] },
+      { type:"text",       name:"paye_slips_count_3years",title:"Fiches de paie sur 3 ans (≥ 18h/semaine)",     inputType:"number", visibleIf:"{has_contract}='Oui'" },
+      { type:"radiogroup", name:"employer_support",       title:"Votre employeur soutient-il votre dossier ?",  choices:["Oui","Non","Ne sais pas"], visibleIf:"{has_contract}='Oui'" }
+    ]},
+    { name:"declaration", title:"Déclaration", elements:[
+      { type:"checkbox", name:"honesty_declaration", title:"Je certifie l'exactitude des informations renseignées",                       isRequired:true, choices:["Je confirme"] },
+      { type:"checkbox", name:"terms_accept",        title:"J'accepte les conditions générales d'utilisation et la politique de confidentialité", isRequired:true, choices:["J'accepte"] }
+    ]}
   ]
 };
 
-// Init survey
 const survey = new Survey.Model(surveyJSON);
 
-survey.onCurrentPageChanged.add(function(sender) {
-  updateSteps(sender.currentPageNo);
+survey.onCurrentPageChanged.add(function(s) {
+  const cur = s.currentPageNo;
+  document.querySelectorAll('#stepsBar .step').forEach((el, i) => {
+    el.classList.remove('active','done');
+    const dot = el.querySelector('.step-dot');
+    if (i < cur)       { el.classList.add('done');   dot.textContent = '✓'; }
+    else if (i === cur){ el.classList.add('active'); dot.textContent = i+1; }
+    else               { dot.textContent = i+1; }
+  });
 });
 
 survey.onComplete.add(function(sender) {
-  const data = sender.data;
+  const d = sender.data;
   let score = 0;
   const factors = [];
 
-  if (data.oqtf === "Oui") {
-    score -= 100;
-    factors.push({ label: "OQTF enregistrée", type: "neg" });
-  }
-  if (data.asylum_application === "Oui") {
-    score -= 20;
-    factors.push({ label: "Demande d'asile en cours", type: "neg" });
-  }
-  if (data.entry_visa === "Avec un visa D") {
-    score += 5;
-    factors.push({ label: "Entrée avec visa D", type: "pos" });
-  }
-  if (data.other_eu_residence_permit === "Oui") {
-    score += 15;
-    factors.push({ label: "Titre de séjour UE", type: "pos" });
-  }
-  if (data.children && data.children.length > 0) {
-    data.children.forEach(child => {
-      if (child.child_schooling_3years === "Oui") {
-        score += 30;
-        factors.push({ label: "Enfant scolarisé 3 ans+", type: "pos" });
-      } else if (child.child_schooling === "Oui") {
-        score += 10;
-        factors.push({ label: "Enfant scolarisé en France", type: "pos" });
-      }
-    });
-  }
-  const linked = data.marital_status;
-  if (linked === "Marié(e)" || linked === "Pacsé(e)" || linked === "Concubin(e)") {
-    score += 20;
-    factors.push({ label: "Vie de couple stable", type: "pos" });
-  }
-  if (data.has_contract === "Oui") {
-    if (data.contract_type === "CDI") {
-      score += 25;
-      factors.push({ label: "Contrat CDI", type: "pos" });
-    } else {
-      score += 10;
-      factors.push({ label: "Contrat de travail", type: "pos" });
-    }
-  }
-  const slips = parseInt(data.paye_slips_count_3years);
-  if (slips >= 36) {
-    score += 30;
-    factors.push({ label: "≥ 36 fiches de paie (3 ans)", type: "pos" });
-  } else if (slips >= 18) {
-    score += 15;
-    factors.push({ label: "Activité professionnelle partielle", type: "neutral" });
-  }
-  if (data.employer_support === "Oui") {
-    score += 10;
-    factors.push({ label: "Soutien de l'employeur", type: "pos" });
-  }
+  if (d.oqtf === "Oui")                  { score -= 100; factors.push({ t:"OQTF enregistrée",              c:"neg" }); }
+  if (d.asylum_application === "Oui")     { score -= 20;  factors.push({ t:"Demande d'asile en cours",      c:"neg" }); }
+  if (d.entry_visa === "Avec un visa D")  { score += 5;   factors.push({ t:"Entrée avec visa D",            c:"pos" }); }
+  if (d.other_eu_residence_permit==="Oui"){ score += 15;  factors.push({ t:"Titre de séjour UE",            c:"pos" }); }
 
-  // Display result
+  (d.children||[]).forEach(ch => {
+    if (ch.child_schooling_3years === "Oui") { score += 30; factors.push({ t:"Enfant scolarisé 3 ans+",      c:"pos" }); }
+    else if (ch.child_schooling === "Oui")   { score += 10; factors.push({ t:"Enfant scolarisé en France",   c:"pos" }); }
+  });
+
+  const ms = d.marital_status;
+  if (ms==="Marié(e)"||ms==="Pacsé(e)"||ms==="Concubin(e)") { score += 20; factors.push({ t:"Vie de couple stable", c:"pos" }); }
+
+  if (d.has_contract === "Oui") {
+    if (d.contract_type === "CDI") { score += 25; factors.push({ t:"Contrat CDI",           c:"pos" }); }
+    else                            { score += 10; factors.push({ t:"Contrat de travail",    c:"pos" }); }
+  }
+  const slips = parseInt(d.paye_slips_count_3years)||0;
+  if      (slips >= 36) { score += 30; factors.push({ t:"≥ 36 fiches de paie (3 ans)", c:"pos" }); }
+  else if (slips >= 18) { score += 15; factors.push({ t:"Activité partielle (18–35)",   c:"neu" }); }
+  if (d.employer_support === "Oui") { score += 10; factors.push({ t:"Soutien employeur confirmé", c:"pos" }); }
+
   document.getElementById('result').style.display = 'block';
-  document.getElementById('scoreNum').textContent = score > 0 ? '+' + score : score;
+  document.getElementById('rScore').textContent = score > 0 ? '+'+score : score;
 
-  let barColor, barWidth, title, subtitle, iconText, iconClass;
-
+  let cls, barColor, barW, title, sub, icon;
   if (score >= 30) {
-    barColor = '#3fae64';
-    barWidth = Math.min(100, 50 + score);
-    title = 'Recevabilité probable';
-    subtitle = 'Votre dossier présente des éléments favorables';
-    iconText = '✓';
-    iconClass = 'favorable';
+    cls="fav";  barColor="#3a9e5f"; barW=Math.min(96, 50+score/2);
+    title="Recevabilité probable"; sub="Votre dossier présente des éléments favorables"; icon="✓";
   } else if (score <= -30) {
-    barColor = '#dc5050';
-    barWidth = Math.max(5, 20 + score / 2);
-    title = 'Recevabilité incertaine';
-    subtitle = 'Des obstacles significatifs ont été identifiés';
-    iconText = '!';
-    iconClass = 'defavorable';
+    cls="def";  barColor="#c94040"; barW=Math.max(6, 15+score/4);
+    title="Obstacles significatifs identifiés"; sub="Un examen approfondi est indispensable"; icon="✕";
   } else {
-    barColor = '#b8992a';
-    barWidth = 40;
-    title = 'Dossier borderline';
-    subtitle = 'Un examen approfondi par un avocat est recommandé';
-    iconText = '~';
-    iconClass = 'borderline';
+    cls="bord"; barColor="#c49a35"; barW=38;
+    title="Dossier à examiner"; sub="La situation est borderline — consultation recommandée"; icon="?";
   }
 
-  document.getElementById('scoreBar').style.background = barColor;
-  document.getElementById('scoreBar').style.width = barWidth + '%';
-  document.getElementById('resultTitle').textContent = title;
-  document.getElementById('resultSubtitle').textContent = subtitle;
+  const icon_el = document.getElementById('rIcon');
+  icon_el.className = 'r-icon ' + cls;
+  icon_el.textContent = icon;
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rSub').textContent   = sub;
+  const bar = document.getElementById('rBar');
+  bar.style.background = barColor;
+  setTimeout(() => { bar.style.width = barW + '%'; }, 80);
 
-  const iconEl = document.getElementById('resultIcon');
-  iconEl.className = 'result-icon ' + iconClass;
-  iconEl.textContent = iconText;
-  iconEl.style.fontSize = '20px';
-  iconEl.style.fontWeight = '600';
-  iconEl.style.color = barColor;
-
-  const grid = document.getElementById('factorsGrid');
-  grid.innerHTML = '';
-  if (factors.length === 0) {
-    grid.innerHTML = '<p style="color:var(--text-muted);font-size:13px;grid-column:1/-1">Aucun facteur déterminant identifié.</p>';
+  const grid = document.getElementById('rFactors');
+  if (!factors.length) {
+    grid.innerHTML = '<p style="font-size:13px;color:var(--text-muted);grid-column:1/-1">Aucun facteur déterminant identifié.</p>';
   } else {
-    factors.forEach(f => {
-      grid.innerHTML += `<div class="factor-pill ${f.type}"><span class="factor-dot ${f.type}"></span>${f.label}</div>`;
-    });
+    grid.innerHTML = factors.map(f =>
+      `<div class="factor ${f.c}"><span class="factor-mk">${f.c==='pos'?'+':f.c==='neg'?'−':'·'}</span>${f.t}</div>`
+    ).join('');
   }
 
-  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('result').scrollIntoView({ behavior:'smooth', block:'start' });
 });
 
 $("#surveyContainer").Survey({ model: survey });
-
-function updateSteps(currentPage) {
-  document.querySelectorAll('.step-item').forEach((el, idx) => {
-    el.classList.remove('active', 'done');
-    if (idx < currentPage) el.classList.add('done');
-    else if (idx === currentPage) el.classList.add('active');
-  });
-}
 </script>
 </body>
 </html>
